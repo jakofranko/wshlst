@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+	h1 #{wishlist.name}
+	a.back(href="/dashboard") Back to dashboard
+	if isOwner
+		h2 You're the owner!
+	else
+		h2 You're not the owner
+	ul
+		each item, i in wishlist.items
+			if item.link !== null
+				li
+					a(href=item.link) #{item.name}
+			else	
+				li #{item.name}

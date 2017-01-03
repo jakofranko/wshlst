@@ -31,6 +31,8 @@ var user = require('./routes/user');
 app.use('/user', user);
 var dashboard = require('./routes/dashboard');
 app.use('/dashboard', dashboard);
+var wishlist = require('./routes/wishlist');
+app.use('/wishlist', wishlist);
 
 db.once('open', function() {
     app.listen(8080, function() {

@@ -26,4 +26,12 @@ router.post('/', function(req, res) {
 	});
 });
 
+router.get('/logout', function(req, res) {
+	req.session.destroy(function(err) {
+		if(err) throw new Error(err);
+		else
+			res.redirect('/');
+	});
+});
+
 module.exports = router;
