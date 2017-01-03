@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	h1 WSHLST
+	#error-messages
+	.form-group
+		label(for="username") Username
+		input#username(type="text", name="username")
+
+	.form-group
+		label(for="password") Password
+		input#password(type="password", name="password")
+
+	button(type="button" id="submit") Login
+
+	a(href="/forgot") Forgot Password
+	a(href="/user/new") Create Account
+
+	script.
+		var submit = document.getElementById('submit');
+		submit.onclick = function() {
+			var username = document.getElementById('username').value,
+				password = document.getElementById('password').value,
+				params = "username=" + username + "&password=" + password;
+				r = new XMLHttpRequest();
+			r.open('POST', '/', true);
+			r.onreadystatechange = function() {
+				if(r.readyState === XMLHttpRequest.DONE && r.status === 200) {
+					var response = JSON.parse(r.responseText);
+					console.log(response);
+					if(response.success)
+						window.location.pathname = "/dashboard";
+					else
+						console.log("incorrect username/password"); // handle alert...
+				}
+			}
+			
+			r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			r.send(params);
+		}

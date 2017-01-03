@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+	h1 Hi, #{username}
+
+	h2 Your wishlists
+	a.button(href="/wishlist/new") Create a new wishlist
+	ul
+		each list, i in wishlists
+			li
+				a(href="/wishlist/" + list._id) #{wishlist.name}

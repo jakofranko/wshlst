@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+	h1 New Wishlist
+
+	label(for="wishlist-name") Wishlist Name
+	input#wishlist-name(type="text", name="wishlist-name")
+	button#submit(type="button") Add Wishlist
+
+	script.
+		var submit = document.getElementById('submit');
+		submit.onclick = function() {
+			var wishlistName = document.getElementById('wishlist-name').value,
+				params = 'name=' + wishlistName,
+				r = new XMLHttpRequest();
+				
+			r.open('POST', '/wishlist/new', true);
+			
+			r.onreadystatechange = function() {
+				if(r.readyState === XMLHttpRequest.DONE && r.status === 200) {
+					var response = JSON.parse(r.responseText);
+					if(response.success)
+						window.location.pathname = "/wishlist/view/" + response._id;
+					else
+						console.error("error creating wishlist"); // handle alert...
+				}
+			}
+
+			r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			r.send(params)
+		}
