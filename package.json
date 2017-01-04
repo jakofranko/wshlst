@@ -4,7 +4,8 @@
   "description": "a web app for letting people what you want",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
   },
   "author": "Jake Franklin <jacob.d.franklin@gmail.com>",
   "license": "ISC",

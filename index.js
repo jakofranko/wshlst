@@ -3,9 +3,17 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	session = require('express-session'),
 	MongoStore = require('connect-mongo')(session),
-	path = require('path');
+	path = require('path'),
+	fs = require('fs');
 
-mongoose.connect('mongodb://localhost/wshlst');
+// mongoose.connect('mongodb://localhost/wshlst');
+var contents = fs.readFileSync('a_road_less_traveled.txt', {encoding: 'utf8'}).split("\n"),
+	a = contents[0],
+	road = contents[1],
+	less = contents[2],
+	traveled = contents[3];
+
+mongoose.connect('mongodb://' + a + ':' + road + '@ds151028.mlab.com:51028/' + less);
 var db = mongoose.connection;
 
 
@@ -17,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
 	maxAge: 1000 * 60 * 30, // half hour
-	secret: 'secret, secret santa',
+	secret: traveled,
 	store: new MongoStore({
 		mongooseConnection: mongoose.connection
 	}),
